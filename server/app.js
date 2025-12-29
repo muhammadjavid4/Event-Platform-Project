@@ -14,8 +14,6 @@ app.use(
   })
 );
 
-// 🔴 PRE-FLIGHT REQUESTS HANDLE
-app.options("*", cors());
 
 app.use(express.json());
 

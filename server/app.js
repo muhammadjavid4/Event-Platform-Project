@@ -1,12 +1,11 @@
- const express = require("express");
+const express = require("express");
 const cors = require("cors");
 
 const app = express();
 
+// 🔴 CORS MUST COME BEFORE ROUTES
 app.use(cors({
-  origin: [
-    "https://event-platform-project-alpha.vercel.app"
-  ],
+  origin: "https://event-platform-project-alpha.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));

@@ -1,20 +1,22 @@
-const express = require("express");
+ const express = require("express");
 const cors = require("cors");
-
-const authRoutes = require("./routes/auth.routes");
-const eventRoutes = require("./routes/event.routes");
-const rsvpRoutes = require("./routes/rsvp.routes");
 
 const app = express();
 
 app.use(cors({
-  origin: "*"
+  origin: [
+    "https://event-platform-project-alpha.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/rsvp", rsvpRoutes);
+// routes
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/events", require("./routes/event.routes"));
+app.use("/api/rsvp", require("./routes/rsvp.routes"));
 
 app.get("/", (req, res) => {
   res.json({ message: "API running" });

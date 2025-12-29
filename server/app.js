@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 /**
- * 🔴 CORS CONFIG — MUST BE FIRST
+ * ✅ CORS — SAFE FOR NODE v22
  */
 app.use(
   cors({
@@ -14,10 +14,17 @@ app.use(
   })
 );
 
+// ✅ THIS IS THE MISSING PIECE
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 
-// 🔴 ROUTES
+// routes
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/events", require("./routes/event.routes"));
 app.use("/api/rsvp", require("./routes/rsvp.routes"));
